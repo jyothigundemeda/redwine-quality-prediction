@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wine Quality Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+  
+<body>
+    <div class="container">
+        <h1>Wine Quality Prediction</h1>
+
+        <form action="/predict" method="post">
+            <div class="input-group">
+            <label for="pH">pH value:</label>
+            <input type="number" id="pH" name="pH" step="0.01" required>
+            </div>
+          <div class="input-group">
+
+            <label for="alcohol">Alcohol content:</label>
+            <input type="number" id="alcohol" name="alcohol" step="0.01" required>
+          </div>
+            <button type="submit">Predict</button>
+        </form>
+        {% if prediction_text %}
+        <p>{{ prediction_text }}</p>
+        {% endif %}
+    </div>
+</body>
+</html>

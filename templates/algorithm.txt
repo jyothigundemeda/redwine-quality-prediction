@@ -1,0 +1,65 @@
+import pandas as pd
+import numpy as np
+from sklearn.linear_model import LogisticRegression
+import pickle
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import LabelEncoder
+from sklearn.metrics import accuracy_score
+
+ #Load the dataset from CSV
+data=pd.read_csv("/content/HAM10000_metadata.csv")
+
+# Define "good" and "bad" quality
+threshold = 6  # Define the quality threshold
+
+# Define the target variable
+df['quality_label'] = df['quality'].apply(lambda x: 'good' if x >= threshold else 'bad')
+
+# Filter the data based on conditions
+filtered_data = df[(df['pH'] < 5) & (df['alcohol'].between(7, 10))]
+
+# Define features and target
+X = filtered_data[['pH', 'alcohol']]
+y = filtered_data['quality_label']
+
+# Encode the target variable
+label_encoder = LabelEncoder()
+y = label_encoder.fit_transform(y)
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Create and fit the logistic regression model
+model = LogisticRegression()
+model.fit(X_train, y_train)
+
+y_pred = model.predict(X_test)
+
+accuracy = accuracy_score(y_test, y_pred)
+print(f"Accuracy: {accuracy}")
+
+# Save the model and label encoder using pickle
+with open('model.pkl', 'wb') as f:
+    pickle.dump(model, f)
+
+with open('label_encoder.pkl', 'wb') as f:
+    pickle.dump(label_encoder, f)
+
+# Load the model and label encoder from pickle
+with open('model.pkl', 'rb') as f:
+    loaded_model = pickle.load(f)
+
+with open('label_encoder.pkl', 'rb') as f:
+    loaded_label_encoder = pickle.load(f)
+
+# Take user input for wine quality features
+user_pH = float(input("Enter pH value of the wine: "))
+user_alcohol = float(input("Enter alcohol content of the wine: "))
+
+# Classify wine quality based on conditions
+if user_pH < 5 and 7 <= user_alcohol <= 10:
+    predicted_quality = 'good'
+else:
+    predicted_quality = 'bad'
+
+# Print the predicted wine quality
+print("Predicted Wine Quality:", predicted_quality)

@@ -1,0 +1,57 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+  }
+  
+  h1 {
+    font-size: 40px; /* Reduced title size */
+    text-align: center;
+    color: red;
+  }
+  
+  .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start; /* Align prediction box to the top */
+    height: 100vh;
+    background-image: url("/static/shiva2.jpg"); /* Change 'background_image.jpg' to your actual image file */
+    background-size: 45%;
+    background-position:40% center;
+    background-repeat: no-repeat;
+  }
+  
+  .section-box {
+    width: 50%;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.7);
+  }
+  
+  .login-box {
+    width: 20%;
+    padding: 80px;
+    background-color: rgba(255, 255, 255, 0.7);
+    align-self: center; /* Align prediction box to the top */
+  }
+  
+  .input-group {
+    margin-bottom: 20px;
+  }
+  
+  input[type="text"], input[type="ph"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+  
+  input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+  }
